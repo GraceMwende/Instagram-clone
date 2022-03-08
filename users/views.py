@@ -4,7 +4,7 @@ from django.views import View
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm,LoginForm
+from .forms import RegisterForm,LoginForm,UpdateProfileForm
 
 # Create your views here.
 def home(request):
@@ -20,7 +20,17 @@ def dispatch(self, request, *args, **kwargs):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    if request.method == 'POST':
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users-profile')
+    else:
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'users/profile.html', {'profile_form': profile_form})
 
 class RegisterView(View):
   form_class = RegisterForm
