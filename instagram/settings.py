@@ -131,3 +131,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
