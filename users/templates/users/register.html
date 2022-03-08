@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}Register page{% endblock title %}
 {% block content %}
+{% if form.errors %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <div id="form_errors">
+        {% for key, value in form.errors.items %}
+            <strong>{{ value }}</strong>
+        {% endfor %}
+    </div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
 <main>
   <div class="page">
       <div class="header">
@@ -14,12 +26,22 @@
         </div>
       </div>
       <div class="container">
-        <form action="">
-          <input type="text" placeholder="Mobile Number or Email">
-          <input type="text" placeholder="Full Name">
-          <input type="text" placeholder="Username">
-          <input type="password" placeholder="Password">
-          <button>Sign up</button>
+        <form method="POST">
+          {% csrf_token %}
+            
+                {{ form.first_name }}
+            
+                {{ form.last_name }}
+           
+                {{ form.username }}
+            
+                {{ form.email }}
+            
+                {{ form.password1 }}
+                {{ form.errors.password }}
+            
+                {{ form.password2 }}
+            <button>Sign up</button>
         </form>
         
         <ul>
