@@ -22,6 +22,10 @@ class Profile(models.Model):
   def __str__(self):
         return self.user.username
 
+  def save_profile(self):
+    self.save()
+
+
 class Image(models.Model):
   image = models.ImageField(upload_to='images/', null=False)
   image_name = models.CharField(max_length=30)
