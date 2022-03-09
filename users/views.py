@@ -70,3 +70,19 @@ class CustomLoginView(LoginView):
 
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
+
+def sendMail(request):
+    if request.method == 'POST':
+        sender = settings.EMAIL_HOST_USER
+        receiver = request.POST['receiver']
+        subject = request.POST['sub']
+        content = request.POST['content']
+
+        mail = send_mail(subject, content, sender, [receiver], fail_silently=False)
+        if mail:
+            messages.success(request, 'Email has been sent.')
+            return redirect('home')
+        else:
+            return HttpResponse('message not sent')
+    else:
+        return redirect('home')

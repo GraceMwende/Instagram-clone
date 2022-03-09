@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,3 +140,11 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
+
+# Email configurations
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'moringaschooltest@gmail.com'
+EMAIL_HOST_PASSWORD = '36635137'

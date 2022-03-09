@@ -7,5 +7,6 @@ from .views import RegisterView
 urlpatterns = [
   path('',views.home, name='users-home'),
   path('register/',RegisterView.as_view(),name='users-register'),
-  path('profile/',views.profile, name='users-profile')
+  path('profile/',views.profile, name='users-profile'),
+  path('send_mail/', views.sendMail, name='send_mail')
 ]

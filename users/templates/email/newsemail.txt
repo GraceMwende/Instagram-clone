@@ -1,0 +1,2 @@
+Hello {{name}}
+Welcome to Instagram.upload your photos and find photos of your friends
