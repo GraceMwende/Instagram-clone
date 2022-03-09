@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+# from PIL import Image
+import PIL.Image
         
 # Create your models here.
 class Profile(models.Model):
@@ -15,7 +16,7 @@ class Profile(models.Model):
   def save(self, *args, **kwargs):
       super().save()
 
-      img = Image.open(self.profile_photo.path)
+      img = PIL.Image.open(self.profile_photo.path)
       
 
       if img.height > 100 or img.width > 100:
