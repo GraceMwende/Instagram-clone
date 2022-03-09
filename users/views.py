@@ -8,6 +8,7 @@ from .models import Image
 from .forms import RegisterForm,LoginForm,UpdateProfileForm
 
 # Create your views here.
+# @login_required
 @login_required
 def home(request):
     images = Image.display_images()
