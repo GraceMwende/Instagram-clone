@@ -9,7 +9,7 @@ from .forms import RegisterForm,LoginForm,UpdateProfileForm
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
-  
+
 def dispatch(self, request, *args, **kwargs):
         # will redirect to the home page if a user tries to access the register page while logged in
         if request.user.is_authenticated:
