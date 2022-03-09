@@ -3,12 +3,14 @@ from django.contrib import messages
 from django.views import View
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from .models import Image
 
 from .forms import RegisterForm,LoginForm,UpdateProfileForm
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html')
+    images = Image.display_images()
+    return render(request, 'home.html',{"images":images,})
 
 def dispatch(self, request, *args, **kwargs):
         # will redirect to the home page if a user tries to access the register page while logged in
