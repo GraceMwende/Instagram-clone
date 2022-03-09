@@ -18,19 +18,6 @@ def dispatch(self, request, *args, **kwargs):
         # else process dispatch as it otherwise normally would
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
 
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-
-        if profile_form.is_valid():
-            profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users-profile')
-    else:
-        profile_form = UpdateProfileForm(instance=request.user.profile)
-
-    return render(request, 'users/profile.html', {'profile_form': profile_form})
 
 class RegisterView(View):
   form_class = RegisterForm
@@ -71,18 +58,32 @@ class CustomLoginView(LoginView):
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
 
-def sendMail(request):
-    if request.method == 'POST':
-        sender = settings.EMAIL_HOST_USER
-        receiver = request.POST['receiver']
-        subject = request.POST['sub']
-        content = request.POST['content']
+# def sendMail(request):
+#     if request.method == 'POST':
+#         sender = settings.EMAIL_HOST_USER
+#         receiver = request.POST['receiver']
+#         subject = request.POST['sub']
+#         content = request.POST['content']
 
-        mail = send_mail(subject, content, sender, [receiver], fail_silently=False)
-        if mail:
-            messages.success(request, 'Email has been sent.')
-            return redirect('home')
-        else:
-            return HttpResponse('message not sent')
+#         mail = send_mail(subject, content, sender, [receiver], fail_silently=False)
+#         if mail:
+#             messages.success(request, 'Email has been sent.')
+#             return redirect('home')
+#         else:
+#             return HttpResponse('message not sent')
+#     else:
+#         return redirect('home')
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users-profile')
     else:
-        return redirect('home')
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'users/profile.html', {'profile_form': profile_form})
